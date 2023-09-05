@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Vertical Timelines</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+</head>
+
+<body class="relative font-inter antialiased">
+
+    <main class="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
+        <div class="container bg-gray-200 mx-auto w-full h-full">
+            <div class="relative wrap overflow-hidden p-10 h-full" x-data="{
+                timelines: {
+                  1: { id: 1, title: 'Title 1', text: 'Pretium lectus quam id leo. Urna et pharetra pharetra massa massa. Adipiscing enim eu neque aliquam vestibulum morbi blandit cursus risus.', image: null, left: true },
+                  2: { id: 2, title: 'Title 2', text: 'todo-2', image: 'https://via.placeholder.com/100', left: false },
+                  3: { id: 3, title: 'Title 3', text: 'todo-3', image: 'https://via.placeholder.com/100', left: true },
+                }
+              }">
+                <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%">
+                </div>
+
+                <template x-for="[id, value] in Object.entries(timelines)" :key="id">
+                    <div class="mb-8 flex justify-between items-center w-full" :class="{
+                        'flex-row-reverse': value.left,
+                        'right-timeline': !value.left,
+                        'left-timeline': value.left,
+                      }">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto text-white font-semibold text-lg"></h1>
+                        </div>
+                        <div class="order-1 rounded-lg shadow-xl w-5/12 px-6 py-4" :class="{
+                            'bg-red-400': value.left,
+                            'bg-gray-400': !value.left
+                          }">
+                            <h3 class="mb-3 font-bold text-xl" :class="{
+                                'text-white': value.left,
+                                'text-gray-800': !value.left
+                              }" x-text="value.title"></h3>
+                            <p x-text="value.text"
+                                class="text-sm font-medium leading-snug tracking-wide text-opacity-100" :class="{
+                                    'text-white': value.left,
+                                    'text-gray-900': !value.left
+                                  }"></p>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
